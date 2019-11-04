@@ -65,6 +65,7 @@
   </script>
 
   <!-- 业务逻辑代码 -->
+  <!-- 评论列表展现 -->
   <script type="text/html" id="listTpl">
     {{each data}}
     <tr>
@@ -74,8 +75,8 @@
         <td>{{$value.date}}</td>
         <td>{{$value.state}}</td>
         <td class="text-center">
-          <a href="javascript:;" class="btn btn-warning btn-xs">拒绝</a>
-          <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
+          <a href="javascript:;" class="btn btn-warning btn-xs" id="refuse" data-id="{{$value.id}}">拒绝</a>
+          <a href="javascript:;" class="btn btn-danger btn-xs" id="delete" data-id="{{$value.id}}">删除</a>
         </td>
       </tr>
       {{/each}}
