@@ -10,3 +10,8 @@ $.ajax({
         $('#focus').html(html)
     }
 })
+
+//用户评论
+$('#comment').on('submit',function(){
+    
+})
