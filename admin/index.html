@@ -182,10 +182,10 @@
     $.ajax({
       url: 'http://47.111.184.55:8888/api/v1/admin/user/info',
       success: function(data) {
-        console.log(data);
+        // console.log(data);
         
         var html = template('userTpl', {data : data});
-        console.log(html);
+        // console.log(html);
         
         $('#userList').html(html)
       }
