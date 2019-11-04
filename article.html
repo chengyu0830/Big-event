@@ -90,7 +90,9 @@
           <textarea placeholder="请发表您的评论" class="comment_input"></textarea>
         </div>
         <div class="form_group">
-          <input type="submit" name="" value="评 论" class="comment_sub"></div>
+          
+          <input type="submit" name="" value="评 论" id="comment" class="comment_sub">
+        </div>
       </form>
 
       <div class="comment_count">
@@ -178,14 +180,8 @@
       </div>
       <div class="common_wrap">
         <h3><i class="fa fa-bullseye"></i> 焦点关注</h3>
-        <ul class="content_list guanzhu_list">
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+        <ul class="content_list guanzhu_list" id="focus">
+          
         </ul>
       </div>
     </div>
@@ -210,8 +206,11 @@
   <script src="./js/template-web.js"></script>
 
   <!-- 文章页面的 js 代码  -->
-  <script>
-
+  <script src="./js/article.js"></script>
+  <script type="text/html" id="focusTpl">
+    {{each data}}
+    <li><a href="#">{{$value.intro}}</a></li>
+    {{/each}}
   </script>
 </body>
 

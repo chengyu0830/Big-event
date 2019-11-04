@@ -21,7 +21,7 @@
     <div class="link_info fr">
       <a href="#"><i class="fa fa-angle-right"></i>&nbsp;&nbsp;网站地图</a><br>
       <a href="#"><i class="fa fa-angle-right"></i>&nbsp;&nbsp;招聘信息</a>
-    </div>
+    </div>  
   </div>
 
   <div class="menu_con">
@@ -194,14 +194,9 @@
       </div>
       <div class="common_wrap">
         <h3><i class="fa fa-bullseye"></i> 焦点关注</h3>
-        <ul class="content_list guanzhu_list">
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+        <ul class="content_list guanzhu_list" id="focus">
+          
+        
         </ul>
       </div>
     </div>
@@ -225,7 +220,12 @@
   <script src="./js/template-web.js"></script>
 
   <!-- index 代码 -->
-  <script>
+  <script src="./js/index.js"></script>
+  <script src="./js/template-web.js"></script>
+  <script type="text/html" id="focusTpl">
+    {{each data}}
+    <li><a href="#">{{$value.intro}}</a></li>
+    {{/each}}
   </script>
 </body>
 
