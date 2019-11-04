@@ -75,8 +75,8 @@
 
   <div class="header_bar">
     <form class="search_form">
-      <input type="text" placeholder="请输入搜索内容">
-      <i class="iconfont icon-search"></i>
+      <input type="text" placeholder="请输入搜索内容" id="key">
+      <i class="iconfont icon-search" id="search"></i>
     </form>
 
     <div class="user_center_link">
@@ -189,6 +189,21 @@
         
         $('#userList').html(html)
       }
+    })
+
+    $('#search').on('click', function() {
+      var key = $('#key').val()
+      $.ajax({
+        url: 'http://47.111.184.55:8888/api/v1/admin/article/query',
+        data: {
+           key: key
+        },
+        success: function(data) {
+          console.log(data);
+          location.href = './article_list.html'
+          
+        }
+      })
     })
   </script>
 </body>
