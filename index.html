@@ -217,7 +217,7 @@
   <!-- 热点排行2 -->
   <script type="text/html" id="lists">
     {{each data}}
-    <li><span class="second">1</span><a href="{{$value.id}}">{{$value.title}}</a></li>
+    <li><span>{{$index+1}}</span><a href="{{$value.id}}">{{$value.title}}</a></li>
     {{/each}}
   </script>
   

@@ -14,10 +14,10 @@ $.ajax({
     type: 'get',
     success: function (data) {
         var html = template('lists', { data: data.data })
-        $('#ranking').html(html)
-        $('#ranking li:eq(0) span').addClass("first")
-        $('#ranking li:eq(1) span').addClass("second")
-        $('#ranking li:eq(2) span').addClass("third")
+        $('#list').html(html)
+        $('#list li:eq(0) span').addClass("first")
+        $('#list li:eq(1) span').addClass("second")
+        $('#list li:eq(2) span').addClass("third")
     }
 })
 
