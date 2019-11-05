@@ -119,7 +119,7 @@
       {{if $value.userPic == null}}
         <img src="./images/2.jpg" alt="person">
       {{else}}
-        <img src="http://47.111.184.55:8888/api/v1{{$value.data.userPic}}" alt="person">
+        <img src="{{$value.data.userPic.replace('http://172.16.19.30','http://47.111.184.55')}}" alt="person">
       {{/if}}
         <span>欢迎&nbsp;&nbsp;{{$value.data.nickname}}</span>
         <b>管理员</b>
