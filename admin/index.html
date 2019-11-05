@@ -15,10 +15,10 @@
 <body>
   <div class="sider">
     <a href="#" class="logo"><img src="images/logo02.png" alt="logo"></a>
-    <div class="user_info">
-      <img src="images/2.jpg" alt="person">
+    <div class="user_info" id="userList">
+      <!-- <img src="images/2.jpg" alt="person">
       <span>欢迎&nbsp;&nbsp;李思思</span>
-      <b>管理员</b>
+      <b>管理员</b> -->
     </div>
     <div class="menu">
       <div class="level01 active">
@@ -112,6 +112,19 @@
 
   <script src="js/jquery-1.12.4.min.js"></script>
   <script src="./js/bootstrap/js/bootstrap.min.js"></script>
+  <script src="./js/template-web.js"></script>
+
+  <script type="text/html" id="userTpl">
+    {{each }}
+      {{if $value.userPic == null}}
+        <img src="./images/2.jpg" alt="person">
+      {{else}}
+        <img src="http://47.111.184.55:8888/api/v1{{$value.data.userPic}}" alt="person">
+      {{/if}}
+        <span>欢迎&nbsp;&nbsp;{{$value.data.nickname}}</span>
+        <b>管理员</b>
+    {{/each}}
+  </script>
   <script>
     var $level01 = $('.level01');
     var $subli = $('.level02 li')
@@ -166,7 +179,17 @@
 
   <!-- 业务逻辑代码 -->
   <script>
-
+    $.ajax({
+      url: 'http://47.111.184.55:8888/api/v1/admin/user/info',
+      success: function(data) {
+        // console.log(data);
+        
+        var html = template('userTpl', {data : data});
+        // console.log(html);
+        
+        $('#userList').html(html)
+      }
+    })
   </script>
 </body>
 

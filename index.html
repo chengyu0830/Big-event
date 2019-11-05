@@ -15,8 +15,8 @@
   <div class="header">
     <a href="#" class="logo fl"><img src="images/logo.png" alt="logo"></a>
     <div class="search_form fl">
-      <input type="text" class="search_txt" placeholder="黑洞照片">
-      <button class="search_btn"><i class="fa fa-search"></i></button>
+      <input type="text" class="search_txt" placeholder="黑洞照片" id="searchBox">
+      <button class="search_btn"><i class="fa fa-search" id="searchBtn"></i></button>
     </div>
     <div class="link_info fr">
       <a href="#"><i class="fa fa-angle-right"></i>&nbsp;&nbsp;网站地图</a><br>
@@ -28,23 +28,11 @@
     <div class="menu">
       <div class="menu_collapse fl">
         <a href="javascript:;" class="level_one"><i class="fa fa-list-ul"></i>全部分类</a>
-        <ul class="level_two">
-          <li class="up"></li>
-          <li><a href="#">最 新</a></li>
-          <li><a href="#">科 技</a></li>
-          <li><a href="#">股 市</a></li>
-          <li><a href="#">商 品</a></li>
-          <li><a href="#">外 汇</a></li>
-          <li><a href="#">公 司</a></li>
+        <ul class="level_two" id="categoryColBox">
         </ul>
       </div>
-      <ul class="left_menu fl">
-        <li><a href="#">最 新</a></li>
-        <li><a href="#">科 技</a></li>
-        <li><a href="#">股 市</a></li>
-        <li><a href="#">商 品</a></li>
-        <li><a href="#">外 汇</a></li>
-        <li><a href="#">公 司</a></li>
+      <ul class="left_menu fl" id="categoryRowBox">
+        
       </ul>
       <ul class="right_menu fr">
         <li><a href="#">科技专题</a></li>
@@ -55,27 +43,8 @@
 
   <div class="main_con clearfix">
     <div class="left_con">
-      <ul class="focus_list">
-        <li class="first">
-          <a href="#"><img src="images/pic01.jpg" alt=""></a>
-          <p>图片说明</p>
-        </li>
-        <li>
-          <a href="#"><img src="images/pic02.jpg" alt=""></a>
-          <p>图片说明图片说明图片说明图片说明图片说明图片说明图片说明图片说明图片说明</p>
-        </li>
-        <li>
-          <a href="#"><img src="images/pic03.jpg" alt=""></a>
-          <p>图片说明</p>
-        </li>
-        <li>
-          <a href="#"><img src="images/pic05.jpg" alt=""></a>
-          <p>图片说明</p>
-        </li>
-        <li>
-          <a href="#"><img src="images/pic06.jpg" alt=""></a>
-          <p>图片说明</p>
-        </li>
+      <ul class="focus_list" id="focusList">
+        
       </ul>
 
       <div class="common_title">
@@ -147,61 +116,21 @@
     <div class="right_con">
       <div class="common_wrap">
         <h3><i class="fa fa-bar-chart"></i> 一周热门排行</h3>
-        <ul class="content_list hotList">
-          <li><span class="first">1</span><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-          <li><span class="second">2</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span class="third">3</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>4</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>5</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>6</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><span>7</span><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+        <ul class="content_list hotList" id="hotListBox">
         </ul>
       </div>
       <div class="common_wrap">
         <h3><i class="fa fa-commenting-o"></i> 最新评论</h3>
-        <ul class="content_list comment_list">
-          <li>
-            <span>山</span>
-            <b><em>山治</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>丽</span>
-            <b><em>丽丽</em> 9个月前(08-14)说:9个月前(08-14)说:9个月前(08-14)说:</b>
-            <strong>挺会玩的挺会玩的挺会玩的挺会玩的</strong>
-          </li>
-          <li>
-            <span>R</span>
-            <b><em>Rechael</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>J</span>
-            <b><em>John</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>段</span>
-            <b><em>段正淳</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
-          <li>
-            <span>乔</span>
-            <b><em>乔峰</em> 9个月前(08-14)说:</b>
-            <strong>挺会玩的</strong>
-          </li>
+        <ul class="content_list comment_list" id="commentBox">
+          
+          
         </ul>
       </div>
       <div class="common_wrap">
         <h3><i class="fa fa-bullseye"></i> 焦点关注</h3>
-        <ul class="content_list guanzhu_list">
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
-          <li><a href="#">神奇的水滴摄影，泡泡中的世界</a></li>
+        <ul class="content_list guanzhu_list" id="concernBox">
+          
+
         </ul>
       </div>
     </div>
@@ -223,9 +152,136 @@
 
   <script src="./js/jquery-1.12.4.min.js"></script>
   <script src="./js/template-web.js"></script>
-
+  <script type="text/html" id="focusTpl">
+      {{each data}}
+        <li class="{{$imports.firstImg == $value.cover ? 'first':''}}">
+            <a href="#"><img src="{{$value.cover}}" alt=""></a>
+            <p>图片说明</p>
+        </li>
+      {{/each}}
+  </script>
+  <script type="text/html" id="categoryColTpl">
+    <li class="up"></li>
+    {{each data}}
+    <li><a href="#">{{$value.name}}</a></li>
+    {{/each}}
+  </script>
+  <script type="text/html" id="categoryRowTpl">
+    {{each data}}
+    <li><a href="#">{{$value.name}}</a></li>
+    {{/each}}
+  </script>
+  <script type="text/html" id="hotListTpl">
+      {{each data}}
+        <li><span
+          class="
+          {{if $imports.rankArr.indexOf($value)-0+1 == 1}}
+            first
+          {{/if}}
+          {{if $imports.rankArr.indexOf($value)-0+1 == 2}}
+            second
+          {{/if}}
+          {{if $imports.rankArr.indexOf($value)-0+1 == 3}}
+            third
+          {{/if}}"
+          >{{$imports.rankArr.indexOf($value)-0+1}}</span><a href="#">{{$value.title}}</a></li>
+      {{/each}}
+  </script>
+  <script type="text/html" id="commentTpl">
+      {{each data}}
+        <li>
+            <span>{{$value.author.substring(0,1)}}</span>
+            <b><em>{{$value.author}}</em> 9个月前(08-14)说:</b>
+            <strong>{{$value.intro}}</strong>
+        </li>
+      {{/each}}
+  </script>
+  <script type="text/html" id="concernTpl">
+      {{each data}}
+      <li><a href="#">{{$value.intro}}</a></li> 
+      {{/each}}
+  </script>
   <!-- index 代码 -->
   <script>
+      //发送请求获取热点图数据
+      $.ajax({
+          type: 'get',
+          url: 'http://47.111.184.55:8888/api/v1/index/hotpic',
+          success: function (res) {
+              //将第一张图片地址保存到变量中
+              var firstImg = res.data[0].cover;
+              //向模板导入变量
+              template.defaults.imports.firstImg = firstImg;
+              //拼接模板
+              var html = template('focusTpl',{data:res.data});
+              //在页面中显示
+              $('#focusList').html(html);
+          }
+      })
+
+      // 发送请求获取文章分类
+      $.ajax({
+          type: 'get',
+          url: 'http://47.111.184.55:8888/api/v1/index/category',
+          success: function (res) {
+              //拼接模板
+              var html = template('categoryColTpl',{data:res.data.slice(0,6)});
+              //在页面中显示数据
+              $('#categoryColBox').html(html);
+              //拼接模板
+              var html = template('categoryRowTpl',{data:res.data.slice(0,6)});
+              //在页面中显示数据
+              $('#categoryRowBox').html(html);
+          }
+      })
+
+      //发送请求获取热门文章排行
+      $.ajax({
+            type: 'get',
+            url: 'http://47.111.184.55:8888/api/v1/index/rank',
+            success: function (res) {
+                
+                var rankArr = res.data;
+                
+                template.defaults.imports.rankArr = rankArr;
+                template.defaults.imports.rankArr.indexOf = rankArr.indexOf;
+                
+                //拼接模板
+                var html = template('hotListTpl',{data:rankArr});
+                //渲染数据
+                $('#hotListBox').html(html);
+            } 
+      })
+
+      //发送请求获取最新评论
+      $.ajax({
+          type: 'get',
+          url: 'http://47.111.184.55:8888/api/v1/index/latest_comment',
+          success: function (res) {
+              // console.log(res);
+              //拼接模板
+              var html = template('commentTpl',{data: res.data});
+              //渲染数据
+              $('#commentBox').html(html);
+          }
+      })
+
+      //获取焦点关注事件
+      $.ajax({
+          type: 'get',
+          url: 'http://47.111.184.55:8888/api/v1/index/attention',
+          success: function (res) {
+              // console.log(res);
+              //拼接模板
+              var html = template('concernTpl',{data:res.data});
+              //在页面中显示数据
+              $('#concernBox').html(html);
+          }
+      })
+
+      //文章搜索
+      
+
   </script>
 </body>
 
