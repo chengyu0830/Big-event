@@ -75,7 +75,7 @@
         <td>{{$value.date}}</td>
         <td>{{$value.state}}</td>
         <td class="text-center">
-          <a href="javascript:;" class="btn btn-warning btn-xs" id="refuse" data-id="{{$value.id}}">拒绝</a>
+          <a href="javascript:;" class="btn btn-warning btn-xs" id="{{$value.state =='已拒绝' ? 'pass' : 'refuse'}}" data-id="{{$value.id}}">{{$value.state =='已拒绝' ? '通过' : '拒绝'}}</a>
           <a href="javascript:;" class="btn btn-danger btn-xs" id="delete" data-id="{{$value.id}}">删除</a>
         </td>
       </tr>

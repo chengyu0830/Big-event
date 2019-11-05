@@ -5,7 +5,7 @@ $.ajax({
     success:function(response){
         console.log(response);       
         var html = template('listTpl',{data:response})
-        console.log(html);
+        // console.log(html);
         
         $('#commentBox').html(html)
     }   
@@ -20,8 +20,8 @@ $('#commentBox').on('click', '#delete', function () {
         type: 'post',
         data:{id:id},
         success: function (res) {
-          console.log(res);
-          console.log('.....');
+          // console.log(res);
+          // console.log('.....');
           location.reload();
         }
       })
@@ -33,7 +33,7 @@ $('#commentBox').on('click', '#delete', function () {
   //审核拒绝
   $('#commentBox').on('click', '#refuse', function () {
     var id = $(this).attr('data-id');
-    console.log(id);
+    // console.log(id);
     if(confirm('是否确定更改状态')){
         $.ajax({
             url:'http://47.111.184.55:8888/api/v1/admin/comment/reject',
@@ -46,5 +46,23 @@ $('#commentBox').on('click', '#delete', function () {
             }
         })
     }    
+
+})
+
+$('#commentBox').on('click', '#pass', function () {
+  var id = $(this).attr('data-id');
+  // console.log(id);
+  if(confirm('是否确定更改状态')){
+      $.ajax({
+          url:'http://47.111.184.55:8888/api/v1/admin/comment/pass',
+          type:'post',
+          data:{id:id},
+          success:function(res){
+              console.log(res);
+              // $(this).html('通过')
+             location.reload()
+          }
+      })
+  }    
 
 })
