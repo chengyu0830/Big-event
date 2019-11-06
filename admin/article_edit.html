@@ -19,57 +19,7 @@
       文章编辑
     </div>
     <div class="container-fluid common_con" id="articleBox">
-      <form class="form-horizontal article_form" id="articleAdd">
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
-          <div class="col-sm-10">
-            <input type="email" name="title" class="form-control title" id="inputEmail3" value="文章标题文字">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
-          <div class="col-sm-10">
-            <img src="images/pic06.jpg" class="article_cover">
-            <input name="cover" type="file" id="exampleInputFile">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
-          <div class="col-sm-4">
-            <select class="form-control category" name="categoryId">
-              <option>类别一</option>
-              <option>类别二</option>
-              <option>类别三</option>
-              <option selected>类别四</option>
-              <option>类别五</option>
-            </select>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">发布时间：</label>
-          <div class="col-sm-4">
 
-            <div class="input-group">
-              <input type="text" name="date" class="form-control" value="2019-05-17" id="dateinput">
-              <span class="input-group-btn">
-                <button class="btn btn-default" type="button" onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
-                    class="iconfont icon-icondate"></i></button>
-              </span>
-            </div>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
-          <div class="col-sm-10">
-            <input type="text" class="form-control" id="rich_content" placeholder="文章内容" value="文章内容" name="content">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-success btn-edit">发表</button>
-          </div>
-        </div>
-      </form>
     </div>
   </div>
 
@@ -79,29 +29,27 @@
   <script src="js/tinymce/js/tinymce_setup.js"></script>
   <script src="./js/template-web.js"></script>
   <script type="text/html" id="articleModifyTpl">
-    <form class="form-horizontal article_form" id="articleModify">
+    <form class="form-horizontal article_form" id="articleMidfy">
         <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
           <div class="col-sm-10">
-            <input type="email" name="title" class="form-control title" id="inputEmail3" value="文章标题文字">
+            <input type="text" name="title" class="form-control title" id="inputEmail3" value="{{title}}">
+            <input type="hidden" name="id" value="{{id}}">
           </div>
         </div>
         <div class="form-group">
           <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
           <div class="col-sm-10">
-            <img src="images/pic06.jpg" class="article_cover">
-            <input name="cover" type="file" id="exampleInputFile">
+            <img src="{{cover}}" class="article_cover" id="preview">
+            <input name="cover" type="file" id="avatar">
+            <input type="hidden" id="avatarHidden">
           </div>
         </div>
         <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
           <div class="col-sm-4">
-            <select class="form-control category" name="categoryId">
-              <option>类别一</option>
-              <option>类别二</option>
-              <option>类别三</option>
-              <option selected>类别四</option>
-              <option>类别五</option>
+            <select class="form-control category" name="categoryId" id="article_category">
+              
             </select>
           </div>
         </div>
@@ -110,7 +58,7 @@
           <div class="col-sm-4">
 
             <div class="input-group">
-              <input type="text" name="date" class="form-control" value="2019-05-17" id="dateinput">
+              <input type="text" name="date" class="form-control" value="{{date}}" id="dateinput">
               <span class="input-group-btn">
                 <button class="btn btn-default" type="button" onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
                     class="iconfont icon-icondate"></i></button>
@@ -121,7 +69,7 @@
         <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">文章内容：</label>
           <div class="col-sm-10">
-            <input type="text" class="form-control" id="rich_content" placeholder="文章内容" value="文章内容">
+            <input type="text" class="form-control" id="rich_content" placeholder="文章内容" value="{{content}}" name="content">
           </div>
         </div>
         <div class="form-group">
@@ -131,15 +79,85 @@
         </div>
       </form>
   </script>
+  <script type="text/html" id="categoryTpl">
+    {{each catedata}}
+    <option value="{{$value.id}}" {{if $value.id == $imports.cateId}} selected {{/if}}>{{$value.name}}</option> 
+    {{/each}}
+</script>
+  
   <!-- 业务逻辑代码 -->
   <script>
-      //发布文章
-      $('#articleAdd').on('submit', function () {
-            //获取用户输入的信息
-            var formData = $(this).serialize();
-            //发送请求
-            console.log(formData);
-      })
+    //selected="{{$value.id == imports.cateId ? 'selected':''}}"
+    //获取待修改文章的id
+    var id = window.location.search.split('=')[1];
+    //发送Ajax请求获取文章详细信息
+    $.ajax({
+      type: 'get',
+      url: 'http://47.111.184.55:8888/api/v1/admin/article/search',
+      data: {
+        id: id
+      },
+      success: function (artres) {
+        // console.log(artres);
+        //拼接模板
+        var html = template('articleModifyTpl', artres.data);
+        //在页面中显示
+        $('#articleBox').html(html);
+        //获取文章分类id
+        var cateId = artres.data.categoryId;
+        
+        
+
+        //获取文章分类列表
+        $.ajax({
+          type: 'get',
+          url: 'http://47.111.184.55:8888/api/v1/admin/category/list',
+          success: function (cateres) {
+            // console.log(res);
+            //向模板中导入变量
+            template.defaults.imports.cateId = cateId;
+            //拼接模板
+            // console.log(cateId)
+            // console.log(cateres.data)
+            var html = template('categoryTpl', { catedata: cateres.data });
+            //在页面中显示
+            $('#article_category').html(html);
+          }
+        })
+
+        //为头像上传控件绑定change事件
+        $('#avatar').on('change', function () {
+          //生成图片地址
+          var imgUrl = URL.createObjectURL(this.files[0]);
+          // console.log(imgUrl);
+          //设置图片src属性
+          $('#preview').prop('src',imgUrl);
+          //将图片地址设置给隐藏域表单控件
+          $('#avatarHidden').val('name',imgUrl);
+        })
+      }
+    })
+
+    //使用事件委托方式为表单绑定提交事件
+    $('#articleBox').on('submit','#articleMidfy', function (e) {
+          //阻止默认提交行为
+          e.preventDefault();
+          //搜集用户输入的信息
+          var formData = $(this).serialize();
+          // formData.append('id',id);
+          //发送Ajax请求
+          // console.log(formData);
+          $.ajax({
+              type: 'post',
+              url: 'http://47.111.184.55:8888/api/v1/admin/article/edit',
+              data: formData,
+              success: function (data) {
+                  location.href = 'article_list.html'
+              }
+          })
+    })
+
+
   </script>
 </body>
 

@@ -30,17 +30,7 @@
           </tr>
         </thead>
         <tbody id="commentBox">
-          <tr>
-            <td>小周</td>
-            <td>这是一条测试评论，欢迎光临</td>
-            <td>《世界，你好》</td>
-            <td>2017-07-04 12:00:00</td>
-            <td>已批准</td>
-            <td class="text-center">
-              <a href="javascript:;" class="btn btn-warning btn-xs">拒绝</a>
-              <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-            </td>
-          </tr>
+          
         </tbody>
       </table>
 
@@ -66,6 +56,21 @@
   <script src="js/jquery-1.12.4.min.js"></script>
   <script src="../js/template-web.js"></script>
   <script src="./js/jquery.twbsPagination.js"></script>
+  <script type="text/html" id="commentTpl">
+      {{each data}}
+        <tr>
+          <td>{{$value.author}}</td>
+          <td>{{$value.content}}</td>
+          <td>{{$value.title}}</td>
+          <td>{{$value.date}}</td>
+          <td>{{$value.state}}</td>
+          <td class="text-center">
+            <a href="javascript:;" class="btn btn-warning btn-xs" data-id="{{$value.id}}" id="{{$value.state == '已批准' ? 'refuse':'pass'}}">{{$value.state == '已批准' ? '驳回':'批准'}}</a>
+            <a href="javascript:;" class="btn btn-danger btn-xs delete" data-id="{{$value.id}}">删除</a>
+          </td>
+        </tr>
+      {{/each}}
+  </script>
   <script>
     // 设置左侧菜单
     $('#release_btn').click(function () {
@@ -75,6 +80,78 @@
 
   <!-- 业务逻辑代码 -->
   <script>
+      //发送请求获取评论
+      $.ajax({
+          type: 'get',
+          url: 'http://47.111.184.55:8888/api/v1/admin/comment/search',
+          success: function(data) {
+            console.log(data);
+            //拼接模板
+            var html = template('commentTpl',{data:data});
+            //在页面中显示
+            $('#commentBox').html(html);
+          }
+      })
+
+      //用事件委托的方式为删除按钮绑定事件
+      $('#commentBox').on('click','.delete',function () {
+            //确认删除
+            if(confirm('确认要删除本条评论嘛')) {
+                //获取待删除评论的id
+                var id = $(this).attr('data-id');
+                //发送请求
+                $.ajax({
+                    type: 'post',
+                    url: 'http://47.111.184.55:8888/api/v1/admin/comment/delete',
+                    data: {
+                      id:id
+                    },
+                    success: function () {
+                        location.reload();
+                    }
+                })
+            }
+      })
+
+      //评论审核通过
+      $('#commentBox').on('click','#pass',function () {
+            //确认删除
+            if(confirm('确认要通过本条评论嘛')) {
+                //获取待删除评论的id
+                var id = $(this).attr('data-id');
+                //发送请求
+                $.ajax({
+                    type: 'post',
+                    url: 'http://47.111.184.55:8888/api/v1/admin/comment/pass',
+                    data: {
+                      id:id
+                    },
+                    success: function () {
+                        location.reload();
+                    }
+                })
+            }
+      })
+
+      //评论审核驳回
+      $('#commentBox').on('click','#refuse',function () {
+            //确认删除
+            if(confirm('确认要驳回本条评论嘛')) {
+                //获取待删除评论的id
+                var id = $(this).attr('data-id');
+                //发送请求
+                $.ajax({
+                    type: 'post',
+                    url: 'http://47.111.184.55:8888/api/v1/admin/comment/reject',
+                    data: {
+                      id:id
+                    },
+                    success: function () {
+                        location.reload();
+                    }
+                })
+            }
+      })
   </script>
 </body>
 

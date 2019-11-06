@@ -91,7 +91,7 @@
         $('#InputFile').on('change', function () {
           //生成图片地址
           var imgUrl = URL.createObjectURL(this.files[0]);
-          console.log(imgUrl);
+          // console.log(imgUrl);
           //设置图片src属性
           $('#preview').prop('src',imgUrl).css('display','block');
         })

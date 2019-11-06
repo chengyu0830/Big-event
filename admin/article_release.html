@@ -19,29 +19,26 @@
       写文章
     </div>
     <div class="container-fluid common_con">
-      <form class="form-horizontal article_form">
+      <form class="form-horizontal article_form" id="articleAdd">
         <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">文章标题：</label>
           <div class="col-sm-10">
-            <input type="email" name="title" class="form-control" id="inputEmail3" placeholder="文章标题">
+            <input type="text" name="title" class="form-control" id="inputEmail3" placeholder="文章标题">
           </div>
         </div>
         <div class="form-group">
           <label for="inputPassword3" class="col-sm-2 control-label">文章封面：</label>
           <div class="col-sm-10">
-            <img src="./images/2.jpg" style="height:120px;" alt="">
+            <img src="./images/2.jpg" style="height:120px;" alt="" id="preview">
             <input type="file" name="cover" id="exampleInputFile">
+            <input type="hidden" name="cover" id="avatarHidden">
           </div>
         </div>
         <div class="form-group">
           <label for="inputEmail3" class="col-sm-2 control-label">文章类别：</label>
           <div class="col-sm-4">
             <select class="form-control" name="categoryId" id="article_category">
-              <option>1</option>
-              <option>2</option>
-              <option>3</option>
-              <option>4</option>
-              <option>5</option>
+              
             </select>
           </div>
         </div>
@@ -52,7 +49,8 @@
             <div class="input-group">
               <input type="text" name="date" class="form-control" placeholder="YYYY-MM-DD" id="dateinput">
               <span class="input-group-btn">
-                <button class="btn btn-default" type="button" onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
+                <button class="btn btn-default" type="button"
+                  onclick="jeDate('#dateinput',{trigger:false,format: 'YYYY-MM-DD'})"><i
                     class="iconfont icon-icondate"></i></button>
               </span>
             </div>
@@ -68,8 +66,8 @@
         </div>
         <div class="form-group">
           <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-success btn-release">发布</button>
-            <button type="submit" class="btn btn-default">存为草稿</button>
+            <button type="submit" class="btn btn-success btn-release" id="publish">发布</button>
+            <button type="submit" class="btn btn-default" id="draft">存为草稿</button>
           </div>
         </div>
       </form>
@@ -82,10 +80,88 @@
   <script src="js/tinymce/js/tinymce_setup.js"></script>
   <script src="./js/moment.js"></script>
   <script src="./js/template-web.js"></script>
-  
+  <script type="text/html" id="categoryTpl">
+      {{each data}}
+      <option value="{{$value.id}}">{{$value.name}}</option>
+      {{/each}}
+  </script>
   <!-- 业务逻辑代码 -->
   <script>
+    //在下拉列表中获取文章分类
+    $.ajax({
+        type: 'get',
+        url: 'http://47.111.184.55:8888/api/v1/admin/category/list',
+        success: function (res) {
+            // console.log(res);
+            //拼接模板
+            var html = template('categoryTpl',{data:res.data});
+            //在页面中显示
+            $('#article_category').html(html);
+        }
+    })
     
+    
+    //为头像上传控件绑定change事件
+    $('#exampleInputFile').on('change', function () {
+          //生成图片地址
+          var imgUrl = URL.createObjectURL(this.files[0]);
+          // console.log(imgUrl);
+          //设置图片src属性
+          $('#preview').prop('src',imgUrl);
+          //将图片地址设置给隐藏域表单控件
+          $('#avatarHidden').val('name',imgUrl);
+        })
+
+    //获取文章发布表单
+    var articleForm = document.getElementById('articleAdd');
+
+    //发布文章
+    $('#publish').on('click', function (e) {
+      //阻止默认提交行为
+      e.preventDefault();
+      //获取用户输入的信息
+      var formData = new FormData(articleForm);
+      //向表单对象中追加富文本对象
+      formData.append('content',tinyMCE.activeEditor.getContent());
+      //向表单中追加文章状态
+      formData.append('state','已发布');
+      //发送请求
+      // console.log(formData);
+      $.ajax({
+            type: 'post',
+            url: 'http://47.111.184.55:8888/api/v1/admin/article/publish',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                location.href = 'article_list.html';
+            }
+      })
+    })
+
+    //发布草稿
+    $('#draft').on('click', function (e) {
+      //阻止默认提交行为
+      e.preventDefault();
+      //获取用户输入的信息
+      var formData = new FormData(articleForm);
+      //向表单对象中追加富文本对象
+      formData.append('content',tinyMCE.activeEditor.getContent());
+      //向表单中追加文章状态
+      formData.append('state','草稿');
+      //发送请求
+      // console.log(formData);
+      $.ajax({
+            type: 'post',
+            url: 'http://47.111.184.55:8888/api/v1/admin/article/publish',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function (data) {
+                location.href = 'article_list.html';
+            }
+      })
+    })
   </script>
 </body>
 
